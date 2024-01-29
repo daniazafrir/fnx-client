@@ -1,0 +1,12 @@
+<div class="wrapper"> 
+  <div class="search-div" >
+    <tui-input
+    tuiTextfieldIconLeft="tuiIconSearchLarge"
+    [(ngModel)]="search"
+      >
+        Enter your search key
+    </tui-input>
+  </div> 
+  <app-gallery [searchKey] = "search"></app-gallery>
+  
+</div>

@@ -1,0 +1,50 @@
+<div
+    tuiCarouselButtons
+    class="wrapper"
+>
+    <button
+        icon="tuiIconChevronLeftLarge"
+        title="Previous"
+        tuiIconButton
+        type="button"
+        (click)="carousel.prev()"
+    ></button>
+    <tui-carousel
+        #carousel
+        class="carousel"
+        [itemsCount]="3"
+    >
+    <ng-container *ngFor="let item of (result$|async)?.items">
+
+        <tui-island *tuiItem>
+            <h2 class="tui-island__title">{{item?.full_name}}</h2>
+            <img [ngSrc]="item.owner.avatar_url" width="240"
+            height="240"
+            alt="avatar">
+            <div>
+                <button
+                    [appearance]="(isFavourite(item.id)|async)? 'accent' :'primary'"
+                    tuiButton
+                    type="button"
+                    iconRight="tuiIconHeart"
+                    (click)="addToFavs(item)"
+
+                >
+                {{(isFavourite(item.id)|async)? "Remove from" : "Add To"}} Favourits </button>
+              
+            </div>
+        </tui-island>
+        </ng-container>
+        <tui-island *tuiItem>
+            <tui-loader></tui-loader>
+        </tui-island>
+        
+    </tui-carousel>
+    <button
+        icon="tuiIconChevronRightLarge"
+        title="Next"
+        tuiIconButton
+        type="button"
+        (click)="carousel.next()"
+    ></button>
+</div>
