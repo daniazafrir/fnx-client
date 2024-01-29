@@ -10,7 +10,6 @@ import { AuthObject } from '../models/auth';
 export class SearchApiService {
   readonly http = inject(HttpClient);
 
-  readonly suffix = "api"
   searchRepositories(searchKey: string): Observable<DataResult<GitRepoItem>> {
     return this.http.get<DataResult<GitRepoItem>>(
         `${environment.apiUrl}/search?searchKey=${searchKey}`,
