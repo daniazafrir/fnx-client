@@ -14,21 +14,10 @@ export class AppComponent {
   readonly auth$ = new BehaviorSubject<AuthObject|null>(null);
 
   constructor(){
-   let x = this.authService.auth().subscribe(i=>{
+    this.authService.auth().subscribe(i=>{
       localStorage.setItem('access_token', i.token);
-
     })
 
-  }
+  } 
   
-  index = 2;
- 
-  readonly items = [
-      'John Cleese',
-      'Eric Idle',
-      'Michael Palin',
-      'Graham Chapman',
-      'Terry Gilliam',
-      'Terry Jones',
-  ];
 }
