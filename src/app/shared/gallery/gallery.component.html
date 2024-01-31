@@ -14,7 +14,7 @@
         class="carousel"
         [itemsCount]="3"
     >
-    <ng-container *ngFor="let item of (result$|async)?.items">
+    <ng-container *ngFor="let item of (result$|async)">
 
         <tui-island *tuiItem>
             <h2 class="tui-island__title">{{item?.full_name}}</h2>
@@ -35,7 +35,7 @@
             </div>
         </tui-island>
         </ng-container>
-        <tui-island *tuiItem>
+        <tui-island  *tuiItem>
             <tui-loader></tui-loader>
         </tui-island>
         

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { inject, Injectable } from '@angular/core';
-import { DataResult, GitRepoItem } from '../../models/git-repo-item';
+import {  GitRepoItem } from '../../models/git-repo-item';
 import { SearchApiService } from '../../services/search-api.service';
 import {map, Observable, tap} from 'rxjs';
 import { GalleryStore } from '../../stores/gallery-store';
@@ -35,15 +35,16 @@ export class GalleryComponent  {
 
   readonly searchService = inject(SearchApiService);
   readonly galleryStore = inject(GalleryStore);
+  result$ :Observable<GitRepoItem[]> | undefined;
 
-  @Input() set searchKey(value: string) {  
-    if(value.length > 0)  
-      this.result$ = this.searchService.searchRepositories(value) 
-  }
-
-  constructor() { }
-  result$ :Observable<DataResult<GitRepoItem>> | undefined;
-  
+  @Input() set searchKey($value: Observable<string>) {  
+    $value.subscribe(val => {
+    if(val.length > 0)  
+      this.result$ = this.searchService.searchRepositories(val).pipe(
+        map( res => res.items)
+       ) 
+      });
+  }  
   
   addToFavs(item:GitRepoItem):void{
     this.galleryStore.updateSelectedGalleryItems({id:item.id,isFavourite:true})
@@ -53,7 +54,7 @@ export class GalleryComponent  {
     return this.galleryStore.vm$.pipe(
       map ((x)=> {
         return !!x.currentItems.find(item => item.id === id)}),
-      tap((t) => {console.log(t); return t;})
+      tap((t) => t)
         );
     }
     readonly appearance = 'primary' 

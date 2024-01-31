@@ -2,11 +2,11 @@
   <div class="search-div" >
     <tui-input
     tuiTextfieldIconLeft="tuiIconSearchLarge"
-    [(ngModel)]="search"
+    [(ngModel)]="search" (ngModelChange)="searchUpdate.next($event)"
       >
         Enter your search key
     </tui-input>
   </div> 
-  <app-gallery [searchKey] = "search"></app-gallery>
+  <app-gallery [searchKey] = "$search!"></app-gallery>
   
 </div>
